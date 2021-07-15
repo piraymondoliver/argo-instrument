@@ -31,8 +31,8 @@
             const int Ain1Pin                   = 7;    // Green Wire     from Stepper Motor AIN1                 to ItsyBitsy Pin 7
             const int Ain2Pin                   = 9;    // Black Wire     from Stepper Motor AIN2                 to ItsyBitsy Pin 9
             const int Bin2Pin                   = 10;   // Blue wire      from Stepper Motor BIN2                 to ItsyBitsy Pin 10
-            const int Bin1Pin                   = 11;   // Red wire       from Stepper Motor BIN1                 to ItsyBitsy Pin 1   
-
+            const int Bin1Pin                   = 11;   // Red wire       from Stepper Motor BIN1                 to ItsyBitsy Pin 11
+    
 
         ////////////////////////////////////////
         // Define Motor Constants & Variables //
@@ -80,9 +80,12 @@
             bool limitSwitchClosed  = true;
 
 
-        /////////////////////////////////////
-        // Define Optical Switch Variables //
-        /////////////////////////////////////
+        ///////////////////////////////////////////////////
+        // Define Optical Switch Constants and Variables //
+        ///////////////////////////////////////////////////
+
+            // Define calibration threshold level - above this light level value the sensor will be allowed to be closed, below this light level value the sensor will be allowed to be opened
+            int opticalCalibrationLevel = 500;
 
             // Define Optical Switch variable to measure the incoming light level (0-1023 values) 
             int opticalSwitchLightLevel = 0;
@@ -126,7 +129,7 @@
             delay(1000);
 
             // If Shutter is Closed, then Open the Shutter
-            if ((limitSwitchClosed == true) && (limitSwitchOpen == false) && (opticalSwitchLightLevel < 300))
+            if ((limitSwitchClosed == true) && (limitSwitchOpen == false) && (opticalSwitchLightLevel < opticalCalibrationLevel))
                 {
                     stepperMotor.step(shutter_rotation_steps);   // Clockwise <CW> | +360/1.8[*] = +150[*] (+0.45 [Rev]) | Since our stepper motor turns 200 steps per revolution -
                                         //                                                                       | divide 200 by the number of nths of a rev you wish to rotate:
@@ -175,7 +178,7 @@
             delay(1000);
 
             // If Shutter is Open, then Close the Shutter
-            if ((limitSwitchOpen == true) && (limitSwitchClosed == false) && (opticalSwitchLightLevel > 301))
+            if ((limitSwitchOpen == true) && (limitSwitchClosed == false) && (opticalSwitchLightLevel >= opticalCalibrationLevel))
             {    
                 stepperMotor.step(-shutter_rotation_steps);   // Counter-Clockwise <CCW> | -360/1.8[*] = -150[*] (-0.45 [Rev]) (see above commentary)
                 Serial.println(F("\t* * * SHUTTER CLOSED! <Counter-Clockwise, CCW> * * *\n\n"));
@@ -303,7 +306,7 @@
             Serial.print(F("\n\t"));  // print a newline
 
             // Print the pixel array of 64 floats - comma-separated on eight lines (8x8 Matrix)           
-            for(int i = 0; i < AMG88xx_PIXEL_ARRAY_SIZE; i++)
+            for(int i = 1; i <= AMG88xx_PIXEL_ARRAY_SIZE; i++)
             {
                 Serial.print(image[i]);
                 Serial.print(F(", "));
