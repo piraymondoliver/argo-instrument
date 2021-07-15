@@ -18,21 +18,20 @@
         /////////////////
 
             // Optical Switch (Photoresistor) Input
-            #define opticalSwitchPin            A0
+            #define opticalSwitchPin            A0      // Brown Wire     from Open Switch Lead                   to ItsyBitsy Pin A0
 
             // Motor Thermistor Input
-            #define motorThermistorPin          A1
+            #define motorThermistorPin          A1      // Green Wire     from Motor Thermistor Lead              to ItsyBitsy Pin A1
 
             // Limit Switch Inputs
-            #define limitSwitchOpenPin          A2
-            #define limitSwitchClosedPin        A3
+            #define limitSwitchOpenPin          A2      // Orange Wire    from Open Position Limit Switch Lead    to ItsyBitsy Pin A2
+            #define limitSwitchClosedPin        A3      // Purple Wire    from Closed Position Limit Switch Lead  to ItsyBitsy Pin A3
             
             // Motor Stepper Inputs
-            const int Ain1Pin                   = 7;    // Green Wire   from Stepper Motor AIN1 to ItsyBitsy Pin 7
-            const int Ain2Pin                   = 9;    // Black Wire   from Stepper Motor AIN2 to ItsyBitsy Pin 9
-            const int Bin2Pin                   = 10;   // Blue wire    from Stepper Motor BIN2 to ItsyBitsy Pin 10
-            const int Bin1Pin                   = 11;   // Red wire     from Stepper Motor BIN1 to ItsyBitsy Pin 11
-    
+            const int Ain1Pin                   = 7;    // Green Wire     from Stepper Motor AIN1                 to ItsyBitsy Pin 7
+            const int Ain2Pin                   = 9;    // Black Wire     from Stepper Motor AIN2                 to ItsyBitsy Pin 9
+            const int Bin2Pin                   = 10;   // Blue wire      from Stepper Motor BIN2                 to ItsyBitsy Pin 10
+            const int Bin1Pin                   = 11;   // Red wire       from Stepper Motor BIN1                 to ItsyBitsy Pin 11    
 
 
         ////////////////////////////////////////
